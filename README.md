@@ -15,7 +15,7 @@ Other ways to use it, from this folder:
 
 To use Jarvis from your phone, see "Phone" below.
 
-If the terminal was opened before the setup, run `$env:JARVIS_HOME='D:\Arbinda\AI-data\jarvis'` first. Otherwise Jarvis writes its data to `C:\Users\User\.jarvis`.
+If the terminal was opened before the setup, set `JARVIS_HOME` to your Jarvis data folder in that terminal first. Otherwise Jarvis writes its data to `C:\Users\User\.jarvis`.
 
 ## Phone
 
@@ -24,7 +24,7 @@ Double-click `start_jarvis_phone.bat` instead of `start_jarvis.bat`. The console
 - The link carries a secret token, so anyone who has it can chat with Jarvis. Treat it like a password. To get a new link, set a new token with `python main.py config set server.token NEW_SECRET`, using long random text such as the output of `python -c "import secrets; print(secrets.token_urlsafe(18))"`. The old link stops working.
 - Actions that change files or run commands can only be approved on the PC. Asked from the phone, they are refused. The default lite preset has none of them.
 - Typing works on the phone. The microphone does not, because browsers allow it only on https pages and this link is plain http.
-- The PC has to be on, awake and running Jarvis. The link is the PC's address on your router (now `192.168.18.246`), which can change after a restart. The console and the Phone button always show the current one.
+- The PC has to be on, awake and running Jarvis. The link is the PC's address on your router (shown in the console and behind the Phone button), which can change after a restart. The console and the Phone button always show the current one.
 - Windows lists this Wi-Fi as a Public network. `python.exe` already has an inbound allow rule for Public networks, so Windows did not need a change. If a phone cannot connect, check Windows Defender Firewall first.
 - I checked this through the PC's own network address with the real model. I have not tried it from a phone.
 
@@ -39,9 +39,9 @@ Use `qwen3:4b-instruct`, not plain `qwen3:4b`. The plain tag is a thinking model
 
 ## Where things are
 
-- The program: `D:\Arbinda\AI` (this folder).
-- Ollama: `D:\Ollama`, with its models in `D:\Arbinda\AI-data\ollama-models`.
-- Jarvis data (database, settings, the workspace folder, saved reports): `D:\Arbinda\AI-data\jarvis`. The `JARVIS_HOME` environment variable points there.
+- The program: the project folder (this folder).
+- Ollama: its install folder, with its models in your Ollama models folder.
+- Jarvis data (database, settings, the workspace folder, saved reports): your Jarvis data folder (set by `JARVIS_HOME`).
 - Earlier versions of the project: `backup\`.
 
 ## Speed on this laptop
@@ -63,7 +63,7 @@ What makes it fast:
 - Ollama uses all 12 CPU threads (`engine.num_thread`). That read the prompt about 45% faster than its default in a test on this machine.
 - The model stays in memory for 30 minutes after the last question (`engine.keep_alive`), which costs about 4 GB of RAM.
 
-Settings live in `D:\Arbinda\AI-data\jarvis\config.json`. Show them with `python main.py config show` and change one with `python main.py config set engine.num_thread 8`.
+Settings live in `config.json` in your Jarvis data folder. Show them with `python main.py config show` and change one with `python main.py config set engine.num_thread 8`.
 
 ## Presets
 

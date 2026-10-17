@@ -94,7 +94,8 @@ class Text(unittest.TestCase):
 
 class Safety(unittest.TestCase):
     def test_blocked_things(self):
-        self.assertIn("outside the allowed folders", tool("read_file", path="C:/Windows/win.ini"))
+        if sys.platform == "win32":
+            self.assertIn("outside the allowed folders", tool("read_file", path="C:/Windows/win.ini"))
         self.assertIn("sensitive", tool("read_file", path="~/.ssh/id_rsa"))
         for command in ("shutdown /s", "rm -rf /", "format c:"):
             with self.assertRaises(PermissionError):  # checked directly, so a failure here never runs the command
